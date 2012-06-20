@@ -1,10 +1,12 @@
 #include "filetype.h"
 
-class PropertiesFileType : public FileType
+#include "bong_qt_export.h"
+
+class BONG_QT_EXPORT PropertiesFileType : public FileType
 {
 public:
-    void readFile(QString fileName, Translatable *translatable);
-    void writeFile(QString fileName, QString locale, Translatable *translatable);
+    void readFile(QIODevice *inputFile, Translatable *translatable);
+    void writeFile(QIODevice *outputFile, QString locale, Translatable *translatable);
 
 protected:
     QStringList m_lineList;

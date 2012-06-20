@@ -2,13 +2,16 @@
 #define FILETYPE_H
 
 #include <QtCore>
-#include <translatable.h>
+#include "translatable.h"
 
-class FileType
+#include "bong_qt_export.h"
+
+class BONG_QT_EXPORT FileType
 {
 public:
-    virtual void readFile(QString inputFile, Translatable* translatable) = 0;
-    virtual void writeFile(QString inputFile, QString locale, Translatable* translatable) = 0;
+    virtual ~FileType() {};
+    virtual void readFile(QIODevice *inputFile, Translatable* translatable) = 0;
+    virtual void writeFile(QIODevice *outputFile, QString locale, Translatable* translatable) = 0;
 };
 
 #endif //FILETYPE_H

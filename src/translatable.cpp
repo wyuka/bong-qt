@@ -15,13 +15,13 @@ Translatable::~Translatable()
 {
 }
 
-void Translatable::readFile(QString inputFile)
+void Translatable::readFile(QIODevice *inputFile)
 {
     Q_ASSERT(m_fileType);
     m_fileType->readFile(inputFile, this);
 }
 
-void Translatable::writeFile(QString outputFile, QString locale)
+void Translatable::writeFile(QIODevice *outputFile, QString locale)
 {
     Q_ASSERT(m_fileType);
     m_fileType->writeFile(outputFile, locale, this);

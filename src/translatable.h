@@ -3,19 +3,21 @@
 
 #include <QtCore>
 
+#include "bong_qt_export.h"
+
 typedef qint64 EntryIndex;
 typedef QPair<QString, QString> StringHashKey;
 
 class FileType;
 
-class Translatable : public QObject
+class BONG_QT_EXPORT Translatable : public QObject
 {
 public:
     Translatable(FileType *fileType, QObject *parent = 0);
     ~Translatable();
 
-    void readFile(QString inputFile);
-    void writeFile(QString outputFile, QString locale);
+    void readFile(QIODevice *inputFile);
+    void writeFile(QIODevice *outputFile, QString locale);
 
     void addEntry(QString uik, EntryIndex entryNumber, QString note, QString locale, QString string);
 

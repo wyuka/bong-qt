@@ -1,13 +1,11 @@
-#include <propertiesfiletype.h>
+#include "propertiesfiletype.h"
 #include <QtCore>
 
-void PropertiesFileType::readFile(QString fileName, Translatable *translatable)
+void PropertiesFileType::readFile(QIODevice *inputFile, Translatable *translatable)
 {
     QString line, note;
     QStringList keyList;
-    QFile file(fileName);
-    file.open(QFile::ReadOnly);
-    QTextStream textStream(&file);
+    QTextStream textStream(inputFile);
     QList< QPair<QString, QString> > noteList;
     const QString localizationStart = "# LOCALIZATION NOTE";
     bool insideNote = false;
@@ -83,11 +81,9 @@ void PropertiesFileType::readFile(QString fileName, Translatable *translatable)
     }
 }
 
-void PropertiesFileType::writeFile(QString fileName, QString locale, Translatable *translatable)
+void PropertiesFileType::writeFile(QIODevice *outputFile, QString locale, Translatable *translatable)
 {
-    QFile file(fileName);
-    file.open(QFile::WriteOnly | QFile::Truncate);
-    QTextStream textStream(&file);
+    QTextStream textStream(outputFile);
     QString key, value, line;
     int equalPos;
     foreach (line, m_lineList)

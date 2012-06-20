@@ -4,7 +4,7 @@
 
 using namespace std;
 
-int main1(int argc, char* argv[])
+int main(int argc, char* argv[])
 {
     FileType *fileType = new PropertiesFileType();
     Translatable *translatable = new Translatable(fileType);

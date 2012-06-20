@@ -1,11 +1,9 @@
-#include <dtdfiletype.h>
+#include "dtdfiletype.h"
 #include <QtCore>
 
-void DTDFileType::readFile(QString fileName, Translatable *translatable)
+void DTDFileType::readFile(QIODevice *inputFile, Translatable *translatable)
 {
-    QFile file(fileName);
-    file.open(QFile::ReadOnly);
-    QTextStream textStream(&file);
+    QTextStream textStream(inputFile);
     m_contents = textStream.readAll();
     QString key, value;
     QRegExp entityRx("<!ENTITY (.*)\\s*\"(.*)\">", Qt::CaseSensitive, QRegExp::RegExp2);
@@ -42,11 +40,9 @@ void DTDFileType::readFile(QString fileName, Translatable *translatable)
     }
 }
 
-void DTDFileType::writeFile(QString fileName, QString locale, Translatable *translatable)
+void DTDFileType::writeFile(QIODevice *outputFile, QString locale, Translatable *translatable)
 {
-    QFile file(fileName);
-    file.open(QFile::WriteOnly | QFile::Truncate);
-    QTextStream textStream(&file);
+    QTextStream textStream(outputFile);
     QString key, value;
     QRegExp entityRx("<!ENTITY (.*)\\s*\"(.*)\">", Qt::CaseSensitive, QRegExp::RegExp2);
     entityRx.setMinimal(true);
